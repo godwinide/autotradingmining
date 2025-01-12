@@ -744,13 +744,13 @@ new TradingView.widget(
                                         
                                     </div>
                                     <div class="media-body">
-                                        <h4 class="media-heading mb-0"><strong>John Doe</strong></h4>
+                                        <h4 class="media-heading mb-0"><strong><%= req.user.fullname %></strong></h4>
                                         </strong></h5>
                                         <hr class="text-primary">
                                         <br>
                                         <br>
 
-                                        <strong>  <small class="text-white">Email: godwinide@gmail.com</small><strong>
+                                        <strong>  <small class="text-white">Email: <%= req.user.email %></small><strong>
                                         <strong> <h5 class="text-info">Plan:   Mini</strong></h5>
                                        <strong> <h5 class="text-warning">Investment $0 
                                        <br><br>
