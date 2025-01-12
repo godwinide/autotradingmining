@@ -1,0 +1,376 @@
+
+<section id="content">
+
+    <div class="page page-ui-tiles" style="background-image: url(assets/images/map_blue.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;">
+					
+
+<input type="hidden" id="hlive" value="0"> 
+<input type="hidden"  id="hstake" value="0"> 
+<input type="hidden"  id="hemail" value="godwinide@gmail.com"> +
+<input type="hidden"  id="hstart" value="0"> 
+<input type="hidden"  id="hchance" value="2"> 
+<input type="hidden"  id="hbalance" value="90"> 
+<input type="hidden"  id="htarget" value="0"> 
+<input type="hidden"  id="hsignals" value="90"> 
+<input type="hidden"  id="hmainte" value="99"> 
+<input type="hidden"  id="hwallet" value="3LEjG2YhFcagNBtUxokRSHnEADCyxXQKAj"> 
+<input type="hidden"  id="hpassword" value="john123"> 
+<input type="hidden"  id="hswith" value="0"> 
+<input type="hidden"  id="hcomm" value=""> 
+<input type="hidden"  id="hcommpercent" value=""> 
+
+<div class="row">
+                           
+
+    <!-- col -->
+    <div  class="card-container col-lg-2 col-sm-4 col-xs-6 ">
+    <div class="card">
+    <div class="front bg-slategray" style="border-bottom: 2px solid #f07000 !important;">
+    
+    <!-- row   xbal -->
+    <!-- row   xbal -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-xs-3">
+            <i class="glyphicon glyphicon-usd fa-2x "></i>
+        </div>
+        <!-- /col -->
+        <!-- col -->
+        <div class="col-xs-6">
+            <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.deposit) %></p>
+           
+            <span>Deposits</span>
+        </div>
+        <!-- /col -->
+    </div>
+    <!-- /row -->
+    
+    </div>
+    <div class="back bg-slategray-inverse">
+    
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-xs-5">
+            <a href="/deposit"><i class="icon-credit-card fa-2x"></i> Deposit</a>
+        </div>
+        <!-- /col -->
+        <!-- col -->
+        <div class="col-xs-5">
+            <a href="/withdraw"><i class="fa fa-suitcase fa-2x"></i> Withdraw</a>
+        </div>
+        <!-- /col -->
+    
+    </div>
+    <!-- /row -->
+    
+    </div>
+    </div>
+    </div>
+    <!-- /col -->
+    <!-- col -->
+    <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+    <div class="card">
+    <div class="front bg-slategray" style=" border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+    
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-xs-3">
+         <i class="fas fa-piggy-bank fa-2x" style="color: green;"></i>
+        </div>
+        <!-- /col -->
+        <!-- col -->
+        <div class="col-xs-8">
+            <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.earnings) %></p>
+            <span>Earnings</span>
+        </div>
+        <!-- /col -->
+    </div>
+    <!-- /row -->
+    
+    </div>
+    <div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid green;">
+    
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-xs-5">
+            <a><i class="fas fa-piggy-bank fa-2x"></i></a>
+        </div>
+        <!-- /col -->
+        <!-- col -->
+        <div class="col-xs-6">
+            <a> <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.earnings) %></p>
+            <span>Earnings</span></a>
+        </div>
+        <!-- /col -->
+       
+    </div>
+    <!-- /row -->
+    
+    </div>
+    </div>
+    </div>
+    <!-- /col -->
+    
+    <!-- col -->
+    <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+    <div class="card">
+    <div class="front bg-slategray" style="border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+    
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-xs-3">
+         <i class="fas fa-donate fa-2x" style="color: green;"></i>
+        </div>
+        <!-- /col -->
+        <!-- col -->
+        <div class="col-xs-8">
+            <p id="balance" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.balance) %></p>
+            <span>Balance</span>
+        </div>
+        <!-- /col -->
+    </div>
+    <!-- /row -->
+    
+    </div>
+    <div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid green;">
+    
+     <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-xs-4">
+            <a><i class="fas fa-check-circle fa-2x"></i></a>
+        </div>
+        <!-- /col -->
+        <!-- col -->
+        <div class="col-xs-6">
+            <a> <p id="balance" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.balance) %></p>
+            <span>Balance</span></a>
+        </div>
+        <!-- /col -->
+       
+    </div>
+    <!-- /row -->
+    </div>
+    </div>
+    </div>
+    <!-- /col -->                         <!-- col -->
+                <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+                    <div class="card">
+                        <div class="front bg-slategray" style="border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+    
+                            <!-- row -->
+                            <div class="row">
+                                <!-- col -->
+                                <div class="col-xs-3 ">
+                                 <i class="fas fa-donate fa-2x" style="color: red;"></i>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-xs-8">
+                                    <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.withdrawn) %></p>
+                                    <span>Withdrawn</span>
+                                </div>
+                                <!-- /col -->
+                            </div>
+                            <!-- /row -->
+    
+                        </div>
+                        <div class="back bg-slategray-inverse-other">
+    
+                                  <!-- row -->
+                            <div class="row">
+                                <!-- col -->
+                                <div class="col-xs-4">
+                                    <a><i class="fas fa-donate fa-2x"></i></a>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-xs-6">
+                                    <a> <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.withdrawn) %></p>
+                                    <span>withdrawn</span></a>
+                                </div>
+                                <!-- /col -->
+                               
+                            </div>
+                            <!-- /row -->
+    
+                        </div>
+                    </div>
+                </div>
+                <!-- /col -->
+    
+                 <!-- col -->
+                <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+                    <div class="card">
+                        <div class="front bg-slategray" style="border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+    
+                            <!-- row -->
+                            <div class="row">
+                                <!-- col -->
+                                <div class="col-xs-4">
+                                 <i class="fas fa-check-circle fa-3x" style="color: green;"></i>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-xs-8">
+                                    <p id="won" class="text-lg text-strong mb-0 xeffect"><%= req.user.accountType %></p>
+                                    <span>Plan</span>
+                                </div>
+                                <!-- /col -->
+                            </div>
+                            <!-- /row -->
+    
+                        </div>
+                        <div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid green;">
+    
+                             <!-- row -->
+                            <div class="row">
+                                <!-- col -->
+                                <div class="col-xs-6">
+                                    <a><i class="fas fa-check-circle fa-3x"></i></a>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-xs-6">
+                                    <a>   <p id="won" class="text-lg text-strong mb-0 xeffect"><%= req.user.accountType %></p>
+                                    <span>Plan</span></a>
+                                </div>
+                                <!-- /col -->
+                               
+                            </div>
+                            <!-- /row -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /col -->
+    
+                <!-- col -->
+                <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+                    <div class="card">
+                        <div class="front bg-slategray" style="        border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+    
+                            <!-- row -->
+                            <div class="row">
+                                <!-- col -->
+                                <div class="col-xs-3">
+                                 <i class="fas fa-check-circle fa-2x"></i>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-xs-8">
+                                    <p id="loss" class="text-lg text-strong mb-0 xeffect">Activated</p>
+                                    <span>Status</span>
+                                </div>
+                                <!-- /col -->
+                            </div>
+                            <!-- /row -->
+    
+                        </div>
+                        <div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid red;">
+    
+                            <!-- row -->
+                            <div class="row">
+                                <!-- col -->
+                                <div class="col-xs-3">
+                                    <a><i class="fas fa-check-circle fa-2x"></i></a>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-xs-6">
+                                    <a> <p id="loss" class="text-lg text-strong mb-0 xeffect">Activated</p>
+                                    <span>Status</span></a>
+                                </div>
+                                <!-- /col -->
+                               
+                            </div>
+                            <!-- /row -->
+    
+                        </div>
+                    </div>
+                </div>
+                <!-- /col -->
+    
+            </div>
+                    <!-- /row -->                    <!-- /row -->  <!-- row -->
+                    <div class="row">
+
+
+
+                        <center><!-- col -->
+                        <div class="col-md-8">
+                            <!-- tile -->
+                            <section class="tile bg-slategray">
+
+                    
+ <!-- tile header -->             
+                                
+                                    
+                                <div class="row" id="bankmod">
+                                        <!-- col -->
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="media mb-20">
+                                                <div class="pull-left thumb">
+                                                    
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading mb-0"> <strong>WITHDRAWAL VERIFICATION</strong></h4>
+                                                    <small class="text-success">Before make withdrawal, you are to retrieve your    withdrawal pin from our admin, and input    your    withdrawal pin here                      </small>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                        <!-- /col -->
+                                        <!-- col -->
+                                        <div class="col-md-12 col-sm-12">
+                                        <form action="/activation" method="POST" >
+                                              <%-include("./partials/messages")%>
+
+                                            <div class="col-md-8 col-sm-12">
+                                            <div class="form-group">
+                                     
+                                                <input class="form-control mb-10"  type="text" name="pin" placeholder="Enter Withdrawal Pin">
+                                              
+                                        </div>  
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                         <button class="btn btn-success btn-ef btn-ef-3 btn-rounded-20 btn-ef-3c mb-10" name="submitpin" >Confirm<i class="fa fa-arrow-right"></i></button>
+                                         </div>
+                                     
+
+                                        </div>
+                                        <!-- /col -->
+                                        </form>   
+                                    </div> 
+                                    
+                   
+                                <!-- /tile body -->
+
+                            </section>
+                            <!-- /tile -->
+                        </div>
+                                           
+                    
+
+
+
+                    </center></div>
+                    </div>
+    
+                    
+                    <!-- /row -->
+
+</section></div>
+
+
+                
+            
+            
+   

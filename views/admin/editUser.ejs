@@ -1,0 +1,213 @@
+<div class="main-panel">
+  <div class="content-wrapper">
+    <h1 class="text-center">Manage User - <%= client.firstname %></h1>
+    <form
+      action="/admin/edit-user/<%=client.id%>"
+      method="post"
+      class="form mt-4 mx-auto"
+      style="max-width: 500px"
+    >
+      <% if(typeof errors != 'undefined'){ %> <% errors.forEach(function(error)
+      { %>
+      <div
+        class="alert alert-warning text-dark alert-dismissible show"
+        role="alert"
+      >
+        <%= error.msg %>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% }); %> <% } %> <% if(success_msg != ''){ %>
+      <div
+        class="alert alert-success bg-success text-white alert-dismissible show"
+        role="alert"
+      >
+        <%= success_msg %>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %> <% if(error_msg != ''){ %>
+      <div
+        class="alert alert-danger bg-danger text-white alert-dismissible show"
+        role="alert"
+      >
+        <%= error_msg %>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %> <% if(error != ''){ %>
+      <div
+        class="alert alert-danger bg-danger text-white alert-dismissible show"
+        role="alert"
+      >
+        <%= error %>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %>
+
+      <div class="mb-3">
+        <label class="text-white">Full name</label>
+        <input
+          type="text"
+          placeholder="Full name"
+          name="fullname"
+          class="form-control text-white"
+          required
+          value="<%= client.fullname %>"
+        />
+      </div>
+      <label class="text-white">Email</label>
+      <div class="mb-3">
+        <input
+          type="text"
+          placeholder="Email"
+          name="email"
+          class="form-control text-white"
+          required
+          value="<%= client.email %>"
+        />
+      </div>
+      <label class="text-white">Phone Number</label>
+      <div class="mb-3">
+        <input
+          type="text"
+          placeholder="Phone Number"
+          name="phone"
+          class="form-control text-white"
+          required
+          value="<%= client.phone %>"
+        />
+      </div>
+      <label class="text-white">Balance</label>
+      <div class="mb-3">
+        <input
+          type="number"
+          placeholder="Balance"
+          name="balance"
+          class="form-control text-white"
+          required
+          value="<%= client.balance %>"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="text-white">Deposit</label>
+        <input
+          type="number"
+          placeholder="deposit"
+          name="deposit"
+          class="form-control text-white"
+          required
+          value="<%= client.deposit %>"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="text-white">Earnings</label>
+        <input
+          type="number"
+          placeholder="earnings"
+          name="earnings"
+          class="form-control text-white"
+          required
+          value="<%= client.earnings %>"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="text-white">Withdrawn</label>
+        <input
+          type="number"
+          placeholder="withdrawn"
+          name="withdrawn"
+          class="form-control text-white"
+          required
+          value="<%= client.withdrawn %>"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="text-white">Withdrawal PIN</label>
+        <input
+          type="number"
+          placeholder="Withdrawal PIN"
+          name="PIN"
+          class="form-control text-white"
+          required
+          value="<%= client.PIN %>"
+        />
+      </div>
+      <label class="text-white">Currency</label>
+      <div class="form-group">
+        <select class="form-control" name="currency" required>
+          <option value="<%= client.currency %>">Select currency</option>
+          <option value="USD">United States Dollar</option>
+          <option value="EUR">Euro</option>
+          <option value="JPY">Japanese Yen</option>
+          <option value="GBP">British Pound Sterling</option>
+          <option value="AUD">Australian Dollar</option>
+          <option value="CAD">Canadian Dollar</option>
+          <option value="CHF">Swiss Franc</option>
+          <option value="CNY">Chinese Yuan</option>
+          <option value="SEK">Swedish Krona</option>
+          <option value="NZD">New Zealand Dollar</option>
+          <option value="HKD">Hong Kong Dollar</option>
+          <option value="SGD">Singapore Dollar</option>
+          <option value="INR">Indian Rupee</option>
+          <option value="KRW">South Korean Won</option>
+          <option value="BRL">Brazilian Real</option>
+          <option value="RUB">Russian Ruble</option>
+          <option value="TRY">Turkish Lira</option>
+          <option value="ZAR">South African Rand</option>
+          <option value="MXN">Mexican Peso</option>
+          <option value="PLN">Polish Zloty</option>
+        </select>
+
+        <div class="help-block with-errors"></div>
+      </div>
+      <label class="text-white">Password</label>
+      <div class="mb-3">
+        <input
+          type="text"
+          placeholder="password"
+          name="clearPassword"
+          class="form-control text-white"
+          value="<%= client.clearPassword || '' %>"
+        />
+      </div>
+      <button class="btn btn-success">Update Account</button>
+    </form>
+    <hr />
+    <div style="max-width: 500px; margin: 2em auto">
+      <br />
+      <br />
+      <br />
+      <h3 class="mb-4">Dangerous Action</h3>
+      <a href="/admin/delete-account/<%=client._id%>" class="btn btn-danger">
+        <i class="fas fa-trash text-white"></i>
+        Delete Account</a
+      >
+    </div>
+  </div>
+</div>

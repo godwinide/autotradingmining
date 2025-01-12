@@ -1,0 +1,823 @@
+<section id="content">
+
+    <div class="page page-ui-tiles" style="background-image: url(/assets/images/map_blue.png);
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+background-attachment: fixed;"
+
+>
+        
+
+
+
+
+
+
+                            <input type="hidden" id="hlive" value="0"> 
+<input type="hidden"  id="hstake" value="0"> 
+<input type="hidden"  id="hemail" value="<%= req.user.balance %>"> 
+<input type="hidden"  id="hstart" value="0"> 
+<input type="hidden"  id="hchance" value="2"> 
+<input type="hidden"  id="hbalance" value="90"> 
+<input type="hidden"  id="htarget" value="0"> 
+<input type="hidden"  id="hsignals" value="90"> 
+<input type="hidden"  id="hmainte" value="99"> 
+<input type="hidden"  id="hwallet" value="3LEjG2YhFcagNBtUxokRSHnEADCyxXQKAj"> 
+<input type="hidden"  id="hpassword" value="john123"> 
+<input type="hidden"  id="hswith" value="0"> 
+<input type="hidden"  id="hcomm" value=""> 
+<input type="hidden"  id="hcommpercent" value=""> 
+
+<div class="row">
+                           
+
+<!-- col -->
+<div  class="card-container col-lg-2 col-sm-4 col-xs-6 ">
+<div class="card">
+<div class="front bg-slategray" style="border-bottom: 2px solid #f07000 !important;">
+
+<!-- row   xbal -->
+<!-- row   xbal -->
+<div class="row">
+    <!-- col -->
+    <div class="col-xs-3">
+        <i class="glyphicon glyphicon-usd fa-2x "></i>
+    </div>
+    <!-- /col -->
+    <!-- col -->
+    <div class="col-xs-6">
+        <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.deposit) %></p>
+       
+        <span>Deposits</span>
+    </div>
+    <!-- /col -->
+</div>
+<!-- /row -->
+
+</div>
+<div class="back bg-slategray-inverse">
+
+<!-- row -->
+<div class="row">
+    <!-- col -->
+    <div class="col-xs-5">
+        <a href="/deposit"><i class="icon-credit-card fa-2x"></i> Deposit</a>
+    </div>
+    <!-- /col -->
+    <!-- col -->
+    <div class="col-xs-5">
+        <a href="/withdraw"><i class="fa fa-suitcase fa-2x"></i> Withdraw</a>
+    </div>
+    <!-- /col -->
+
+</div>
+<!-- /row -->
+
+</div>
+</div>
+</div>
+<!-- /col -->
+<!-- col -->
+<div class="card-container col-lg-2 col-sm-4 col-xs-6">
+<div class="card">
+<div class="front bg-slategray" style=" border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+
+<!-- row -->
+<div class="row">
+    <!-- col -->
+    <div class="col-xs-3">
+     <i class="fas fa-piggy-bank fa-2x" style="color: green;"></i>
+    </div>
+    <!-- /col -->
+    <!-- col -->
+    <div class="col-xs-8">
+        <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.earnings) %></p>
+        <span>Earnings</span>
+    </div>
+    <!-- /col -->
+</div>
+<!-- /row -->
+
+</div>
+<div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid green;">
+
+<!-- row -->
+<div class="row">
+    <!-- col -->
+    <div class="col-xs-5">
+        <a><i class="fas fa-piggy-bank fa-2x"></i></a>
+    </div>
+    <!-- /col -->
+    <!-- col -->
+    <div class="col-xs-6">
+        <a> <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.earnings) %></p>
+        <span>Earnings</span></a>
+    </div>
+    <!-- /col -->
+   
+</div>
+<!-- /row -->
+
+</div>
+</div>
+</div>
+<!-- /col -->
+
+<!-- col -->
+<div class="card-container col-lg-2 col-sm-4 col-xs-6">
+<div class="card">
+<div class="front bg-slategray" style="border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+
+<!-- row -->
+<div class="row">
+    <!-- col -->
+    <div class="col-xs-3">
+     <i class="fas fa-donate fa-2x" style="color: green;"></i>
+    </div>
+    <!-- /col -->
+    <!-- col -->
+    <div class="col-xs-8">
+        <p id="balance" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.balance) %></p>
+        <span>Balance</span>
+    </div>
+    <!-- /col -->
+</div>
+<!-- /row -->
+
+</div>
+<div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid green;">
+
+ <!-- row -->
+<div class="row">
+    <!-- col -->
+    <div class="col-xs-4">
+        <a><i class="fas fa-check-circle fa-2x"></i></a>
+    </div>
+    <!-- /col -->
+    <!-- col -->
+    <div class="col-xs-6">
+        <a> <p id="balance" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.balance) %></p>
+        <span>Balance</span></a>
+    </div>
+    <!-- /col -->
+   
+</div>
+<!-- /row -->
+</div>
+</div>
+</div>
+<!-- /col -->                         <!-- col -->
+            <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+                <div class="card">
+                    <div class="front bg-slategray" style="border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+
+                        <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-xs-3 ">
+                             <i class="fas fa-donate fa-2x" style="color: red;"></i>
+                            </div>
+                            <!-- /col -->
+                            <!-- col -->
+                            <div class="col-xs-8">
+                                <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.withdrawn) %></p>
+                                <span>Withdrawn</span>
+                            </div>
+                            <!-- /col -->
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                    <div class="back bg-slategray-inverse-other">
+
+                              <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-xs-4">
+                                <a><i class="fas fa-donate fa-2x"></i></a>
+                            </div>
+                            <!-- /col -->
+                            <!-- col -->
+                            <div class="col-xs-6">
+                                <a> <p id="" class="text-lg text-strong mb-0 xeffect"><%= comma(req.user.withdrawn) %></p>
+                                <span>withdrawn</span></a>
+                            </div>
+                            <!-- /col -->
+                           
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+
+             <!-- col -->
+            <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+                <div class="card">
+                    <div class="front bg-slategray" style="border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+
+                        <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-xs-4">
+                             <i class="fas fa-check-circle fa-3x" style="color: green;"></i>
+                            </div>
+                            <!-- /col -->
+                            <!-- col -->
+                            <div class="col-xs-8">
+                                <p id="won" class="text-lg text-strong mb-0 xeffect"><%= req.user.accountType %></p>
+                                <span>Plan</span>
+                            </div>
+                            <!-- /col -->
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                    <div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid green;">
+
+                         <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-xs-6">
+                                <a><i class="fas fa-check-circle fa-3x"></i></a>
+                            </div>
+                            <!-- /col -->
+                            <!-- col -->
+                            <div class="col-xs-6">
+                                <a>   <p id="won" class="text-lg text-strong mb-0 xeffect"><%= req.user.accountType %></p>
+                                <span>Plan</span></a>
+                            </div>
+                            <!-- /col -->
+                           
+                        </div>
+                        <!-- /row -->
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+
+            <!-- col -->
+            <div class="card-container col-lg-2 col-sm-4 col-xs-6">
+                <div class="card">
+                    <div class="front bg-slategray" style="        border-bottom: 2px solid rgba(210, 229, 240, 0.79);">
+
+                        <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-xs-3">
+                             <i class="fas fa-check-circle fa-2x"></i>
+                            </div>
+                            <!-- /col -->
+                            <!-- col -->
+                            <div class="col-xs-8">
+                                <p id="loss" class="text-lg text-strong mb-0 xeffect">Activated</p>
+                                <span>Status</span>
+                            </div>
+                            <!-- /col -->
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                    <div class="back bg-slategray-inverse-other" style="border-bottom: 2px solid red;">
+
+                        <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-xs-3">
+                                <a><i class="fas fa-check-circle fa-2x"></i></a>
+                            </div>
+                            <!-- /col -->
+                            <!-- col -->
+                            <div class="col-xs-6">
+                                <a> <p id="loss" class="text-lg text-strong mb-0 xeffect">Activated</p>
+                                <span>Status</span></a>
+                            </div>
+                            <!-- /col -->
+                           
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- /col -->
+
+        </div>
+        <!-- /row -->
+
+
+        <!-- row -->
+        <div class="row">
+  
+
+
+
+            <!-- col -->
+            <div class="col-md-6">
+
+                <!-- tile -->
+                <section class="tile bg-slategray ">
+
+
+
+
+
+                <div class="row">
+<div class="col-md-12 " style="padding-top: 10px;background-color: #1a1f2e;margin: 0 15px;border-radius: 5px 5px 0 0; width: unset;">
+<form>
+<div class="row ">
+<div class="col-md-3 col-sm-3 col-xs-6">
+<div class="btn-group mb-5" style="width: 100%;">
+<button type="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-expanded="true" style="width: 100%;">
+Assets <i class="fas fa-sort-down" style="float: right;"></i> </button>
+   <ul class="dropdown-menu" role="menu" style="width: 100%">
+        <li><a href="#">USDEUR</a></li>
+        <li><a href="#">USDGBP</a></li>
+        <li><a href="#">USDCAD</a></li>
+        <li><a href="#">USDZAR</a></li>
+        <li><a href="#">EUR</a></li>
+        <li class="divider"></li>
+        <li><a href="#">BTCUSD</a></li>
+        <li><a href="#">ETHUSD</a></li>
+        <li><a href="#">LTCUSD</a></li>
+                            </ul>
+                        </div>
+</div>
+
+<div class="col-md-6 col-sm-6 col-xs-6">
+
+<div class="input-group " style="width:100%;">
+                                  
+<span id="pair" class="text-truncate input-group-addon   ">USDEUR</span>
+ </div>
+</div>
+
+<div class="col-md-3 col-sm-3 col-xs-12">
+<ul class="nav-right pull-right list-inline">
+
+<li class="dropdown nav-profile">
+
+                <a id="ana"  class="dropdown-toggle text-success "  aria-expanded="false">
+                   Pair income
+                </a>
+
+               
+            </li>
+          
+        </ul>
+      </div>
+
+</div>
+</form></div>
+
+
+
+
+
+<style>
+body { background-color: #30303d; color: #fff; }
+#chartdiv {
+width: 100%;
+height: 300px;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_dark);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0;
+
+chart.padding(0, 0, 0, 0);
+
+chart.zoomOutButton.disabled = true;
+
+var data = [];
+var visits = 10;
+var i = 0;
+
+for (i = 0; i <= 30; i++) {
+visits -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+data.push({ date: new Date().setSeconds(i - 30), value: visits });
+}
+
+chart.data = data;
+
+var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+dateAxis.renderer.grid.template.location = 0;
+dateAxis.renderer.minGridDistance = 30;
+dateAxis.dateFormats.setKey("second", "ss");
+dateAxis.periodChangeDateFormats.setKey("second", "[bold]h:mm a");
+dateAxis.periodChangeDateFormats.setKey("minute", "[bold]h:mm a");
+dateAxis.periodChangeDateFormats.setKey("hour", "[bold]h:mm a");
+dateAxis.renderer.inside = true;
+dateAxis.renderer.axisFills.template.disabled = true;
+dateAxis.renderer.ticks.template.disabled = true;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.interpolationDuration = 500;
+valueAxis.rangeChangeDuration = 500;
+valueAxis.renderer.inside = true;
+valueAxis.renderer.minLabelPosition = 0.05;
+valueAxis.renderer.maxLabelPosition = 0.95;
+valueAxis.renderer.axisFills.template.disabled = true;
+valueAxis.renderer.ticks.template.disabled = true;
+
+var series = chart.series.push(new am4charts.LineSeries());
+series.dataFields.dateX = "date";
+series.dataFields.valueY = "value";
+series.interpolationDuration = 500;
+series.defaultState.transitionDuration = 0;
+series.tensionX = 0.8;
+
+chart.events.on("datavalidated", function () {
+dateAxis.zoom({ start: 1 / 15, end: 1.2 }, false, true);
+});
+
+dateAxis.interpolationDuration = 500;
+dateAxis.rangeChangeDuration = 500;
+
+document.addEventListener("visibilitychange", function() {
+if (document.hidden) {
+if (interval) {
+clearInterval(interval);
+}
+}
+else {
+startInterval();
+}
+}, false);
+
+// add data
+var interval;
+function startInterval() {
+interval = setInterval(function() {
+visits =
+visits + Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
+var lastdataItem = series.dataItems.getIndex(series.dataItems.length - 1);
+chart.addData(
+{ date: new Date(lastdataItem.dateX.getTime() + 1000), value: visits },
+1
+);
+}, 1000);
+}
+
+startInterval();
+
+// all the below is optional, makes some fancy effects
+// gradient fill of the series
+series.fillOpacity = 1;
+var gradient = new am4core.LinearGradient();
+gradient.addColor(chart.colors.getIndex(0), 0.2);
+gradient.addColor(chart.colors.getIndex(0), 0);
+series.fill = gradient;
+
+// this makes date axis labels to fade out
+dateAxis.renderer.labels.template.adapter.add("fillOpacity", function (fillOpacity, target) {
+var dataItem = target.dataItem;
+return dataItem.position;
+})
+
+// need to set this, otherwise fillOpacity is not changed and not set
+dateAxis.events.on("validated", function () {
+am4core.iter.each(dateAxis.renderer.labels.iterator(), function (label) {
+label.fillOpacity = label.fillOpacity;
+})
+})
+
+// this makes date axis labels which are at equal minutes to be rotated
+dateAxis.renderer.labels.template.adapter.add("rotation", function (rotation, target) {
+var dataItem = target.dataItem;
+if (dataItem.date && dataItem.date.getTime() == am4core.time.round(new Date(dataItem.date.getTime()), "minute").getTime()) {
+target.verticalCenter = "middle";
+target.horizontalCenter = "left";
+return -90;
+}
+else {
+target.verticalCenter = "bottom";
+target.horizontalCenter = "middle";
+return 0;
+}
+})
+
+// bullet at the front of the line
+var bullet = series.createChild(am4charts.CircleBullet);
+bullet.circle.radius = 5;
+bullet.fillOpacity = 1;
+bullet.fill = chart.colors.getIndex(0);
+bullet.isMeasured = false;
+
+series.events.on("validated", function() {
+bullet.moveTo(series.dataItems.last.point);
+bullet.validatePosition();
+});
+
+}); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
+
+
+
+
+
+
+
+
+
+
+<center><button id="g" class="btn btn-primary btn-ef btn-ef-3 btn-rounded-10 btn-ef-3c mb-2 btn-lg" style="margin: 10px;">Start Trade<i class="fas fa-poll"></i></button>
+</center>
+
+
+
+<div class="col-md-12 hidden-xs hidden-sm hidden-lg hidden-md hidden" style="padding-top: 10px;background-color: #1a1f2e;margin: 0 15px;border-radius: 0 0 5px 5px; width: unset;display:none">
+<form>
+<div class="row ">
+<div class="col-md-2 col-sm-2">
+<button style="width:100%;" class="btn btn-danger btn-ef btn-ef-3 btn-rounded-10 btn-ef-3c mb-2" >Sell<i class="fa fa-arrow-down" style="transform: rotate(-35deg);"></i></button>
+</div>
+<div class="col-md-3 col-sm-3  ">
+
+                              <div class="input-group" style="width:100%;">
+                                  <span class="input-group-addon">$</span>
+                                  <input type="text" class="form-control" data-min='0' data-max="60" data-stepinterval="50" data-maxboostedstep="100000" value="100">
+                                 <span class="input-group-addon">.00</span>
+                           </div>
+</div>
+<div class="col-md-2 col-sm-2  pr-0 pl-0">
+<div class="form-group" style="width:100%;" >
+<input class="form-control mb-2" type="text" disabled="true" placeholder="Strike Price">
+</div>  
+</div>
+<div class="col-md-3 col-sm-3  ">
+                                    <div class="input-group" style="width:100%;">
+                                        <span class="input-group-addon"><i class="fas fa-stopwatch"></i></span>
+                                        <input type="text" class="form-control" disabled="true" value="00:30">
+                                    </div>
+</div>
+<div class="col-md-2 col-sm-2  ">
+<button style="width:100%;" class="btn btn-success btn-ef btn-ef-3 btn-rounded-10 btn-ef-3c mb-2">Buy<i class="fa fa-arrow-up" 
+style="transform: rotate(35deg);"></i></button>
+</div>
+
+</div>
+</form></div>
+
+<div class="col-md-12 hidden-sm hidden-md hidden-lg" style="padding-top: 10px;background-color: #1a1f2e;margin: 0 15px;border-radius: 0 0 5px 5px;display:none">
+<form>
+
+
+<div class="row mb-10">
+<div class="col-xs-6">
+<div class="input-group" style="width:100%; float: none;">
+                                  <span class="input-group-addon">$</span>
+                                  <input type="text" class="form-control" data-min='0' data-max="60" data-stepinterval="50" data-maxboostedstep="100000" value="100">
+                                 <span class="input-group-addon">.00</span>
+                           </div> 
+</div>   
+<div class=" col-xs-6">
+<div class="input-group" style="width:100%; float: none;">
+                                        <span class="input-group-addon"><i class="fas fa-stopwatch"></i></span>
+                                        <input type="text" class="form-control" disabled="true" value="00:30">
+                                    </div>
+
+</div>
+</div>
+<div class="row">
+<div class=" col-xs-3 ">
+
+<button style="width:100%; float: none;" class="btn btn-danger btn-ef btn-ef-3 btn-rounded-10 btn-ef-3c mb-2" >Sell<i class="fa fa-arrow-down" style="transform: rotate(-34deg);"></i></button>
+
+</div>   <div class="col-xs-3">
+<button style="width:100%; float: none" class="btn btn-success btn-ef btn-ef-3 btn-rounded-10 btn-ef-3c mb-2">Buy<i class="fa fa-arrow-up" style="transform: rotate(35deg);"></i></button>
+</div>
+<div class=" col-xs-6">
+<div class="form-group" style="width:100%; float: none;" >
+<input class="form-control mb-2" type="text" disabled="true" placeholder="Strike Price">
+</div>  
+</div>
+
+
+</div>
+
+</form>
+</div>
+</div>
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+
+<!-- col -->
+            <div class="col-md-6">
+
+                <!-- tile -->
+                <section class="tile bg-slategray" fullscreen="isFullscreen02">
+
+           
+
+                    <!-- tile body -->
+                    <div class="tile-body p-0 row">
+
+                       
+
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+<div id="tradingview_3050b"></div>
+<div class="tradingview-widget-copyright"><a href="#" rel="noopener" target="_blank"><span class="blue-text"></span></a></div>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+new TradingView.widget(
+{
+"width": '100%',
+"height": 400,
+"symbol": "BITSTAMP:EURUSD",
+"interval": "1",
+"timezone": "Etc/UTC",
+"theme": "dark",
+"style": "1",
+"locale": "en",
+"toolbar_bg": "#f1f3f6",
+"enable_publishing": false,
+"allow_symbol_change": true,
+"studies": [
+"studyADR@tv-basicstudies"
+],
+"container_id": "tradingview_3050b"
+}
+);
+</script>
+</div>
+<!-- TradingView Widget END -->
+                   <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+
+
+       
+        </div>
+        <!-- /row -->
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-8">
+                <!-- tile -->
+                <section class="tile bg-slategray">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><strong>Latest Trades </strong><small class="text-success"> Highest Gainers</small></h1>
+                      
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+        <div class="tile-body table-custom">
+
+                        <div class="table-responsive">
+                            <table class="table table-custom" id="project">
+                                <thead >
+                                <tr>                                                <th>Transaction ID</th>
+                                    <th>Name</th>
+                                    <th>Profit</th>
+                                    <th>Market</th>
+                                  
+                                    <th>Auto-Trade</th>
+                                    
+                                </tr>
+                                </thead>
+                                <tbody id="vehicleList">
+                                   
+
+                              
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+            </div>
+            <!-- /col -->
+<!-- col -->
+            <div class="col-md-4">
+                <!-- tile -->
+                <section class="tile bg-slategray">
+
+      
+                    <!-- tile widget -->
+                    <div class="tile-widget">
+
+                        <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-lg-6">
+                                <div class="media mb-20">
+                                    <div class="pull-left thumb">
+                                        <i class="fas fa-user img-circle"></i>
+                                        
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading mb-0"><strong>John Doe</strong></h4>
+                                        </strong></h5>
+                                        <hr class="text-primary">
+                                        <br>
+                                        <br>
+
+                                        <strong>  <small class="text-white">Email: godwinide@gmail.com</small><strong>
+                                        <strong> <h5 class="text-info">Plan:   Mini</strong></h5>
+                                       <strong> <h5 class="text-warning">Investment $0 
+                                       <br><br>
+                                       <span class=" h4 text-muted text-capitalize">Activated</span>
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <!-- /col -->
+                            <!-- col -->
+                            <div class="col-lg-6">
+                            
+                               
+                               
+                               
+                            <div class="form-group">
+                                <label class="col-xs-8 control-label">Auto Trade:</label>
+                                <div class="col-xs-4 control-label">
+                                   
+                                             <div class="onoffswitch primary">
+                                        <input type="checkbox" name="onoffswitch" checked class="onoffswitch-checkbox" id="autotrade">
+                                        <label class="onoffswitch-label" for="show-offline">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                                                                    </div>
+                            </div>
+                        
+
+                            </div>
+                            <!-- /col -->
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                    <!-- /tile widget -->
+
+
+                </section>
+                <!-- /tile -->
+            </div>
+            <!-- /col -->
+
+
+
+
+
+
+        
+
+        </div>
+        <!-- /row -->
+
+
+
+
+</div>
+
+
+    
+</section>
