@@ -7,12 +7,8 @@ module.exports = {
       res.redirect(303, '/signin');
     },
     ensureAdmin: function(req, res, next) {
-      if (req.isAuthenticated()) {
-        if(req.user.isAdmin){
-            return next();
-        }
-        req.flash('error_msg', 'Login required');
-        res.redirect(303, '/admin/signin');
+      if (req.isAuthenticated() && req.user?.isAdmin) {
+        return next();
       }
       req.flash('error_msg', 'Login required');
       res.redirect(303, '/admin/signin');
