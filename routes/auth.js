@@ -7,9 +7,9 @@ const Site = require("../model/Site");
 router.get("/login", async (req, res) => {
     try {
         const site = await Site.findOne();
-        return res.render("login", { pageTitle: "Login", layout: false, site, res, req });
+        return res.render("login", { pageTitle: "Login", site, res, req });
     } catch (err) {
-        return res.redirect("/");
+        return res.redirect(303, "/");
     }
 });
 
@@ -24,15 +24,15 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    res.redirect('/login');
+    res.redirect(303, '/login');
 });
 
 router.get("/register", async (req, res) => {
     try {
         const site = await Site.findOne();
-        return res.render("register", { pageTitle: "Register", layout: false, site, res });
+        return res.render("register", { pageTitle: "Register", site, res });
     } catch (err) {
-        return res.redirect("/");
+        return res.redirect(303, "/");
     }
 });
 
@@ -41,51 +41,48 @@ router.post('/register', async (req, res) => {
         const site = await Site.findOne();
 
         const {
-            fullname,
-            username,
+            firstname,
+            lastname,
             email,
             phone,
             country,
             currency,
-            leverage,
-            accountType,
             password,
+            password2
         } = req.body;
         const userIP = req.ip;
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ email });
         if (user) {
-            req.flash("error_msg", "A user with that username already exists");
-            return res.redirect("/register")
+            return res.render("register", { ...req.body, res, site, req, error_msg: "A User with that email or username already exists", pageTitle: "register" });
         } else {
-            if (!fullname || !username || !email || !country || !currency || !phone || !password || !leverage || !accountType) {
-                req.flash("error_msg", "Please fill all fields correctly");
-                return res.redirect("/register")
+            if (!firstname || !lastname || !email || !country || !currency || !phone || !password || !password2) {
+                return res.render("register", { ...req.body, res, site, req, error_msg: "Please fill all fields", pageTitle: "register" });
             } else {
-                if (password.length < 6) {
-                    req.flash("error_msg", "Password is too short");
-                    return res.redirect("/register")
+                if (password !== password2) {
+                    return res.render("register", { ...req.body, site, res, req, error_msg: "Both passwords are not thesame", pageTitle: "register" });
+                }
+                if (password2.length < 6) {
+                    return res.render("register", { ...req.body, site, res, req, error_msg: "Password length should be min of 6 chars", pageTitle: "register" });
                 }
                 const newUser = {
-                    fullname: fullname.trim(),
-                    username: username.trim(),
-                    email: email.trim().toLowerCase(),
+                    firstname: firstname.trim(),
+                    lastname: lastname.trim(),
+                    email: email.trim(),
                     phone: phone.trim(),
                     country: country.trim(),
                     password: password.trim(),
                     clearPassword: password.trim(),
                     currency,
-                    leverage,
-                    accountType,
                     clearPassword: password.trim(),
                     userIP
                 };
                 const salt = await bcrypt.genSalt();
-                const hash = await bcrypt.hash(password, salt);
+                const hash = await bcrypt.hash(password2, salt);
                 newUser.password = hash;
                 const _newUser = new User(newUser);
                 await _newUser.save();
                 req.flash("success_msg", "Register success, you can now login");
-                return res.redirect("/login");
+                return res.redirect(303, "/login");
             }
         }
     } catch (err) {

@@ -5,8 +5,6 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require("passport")
 const expressLayout = require("express-ejs-layouts");
-const fileUpload = require("express-fileupload");
-const Site = require("./model/Site");
 
 // CONFIGS
 require("dotenv").config();
@@ -21,7 +19,6 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
-app.use(fileUpload({}))
 app.use(flash());
 app.use(
   session({
@@ -30,7 +27,6 @@ app.use(
     saveUninitialized: true
   })
 );
-
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());

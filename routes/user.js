@@ -2,7 +2,9 @@ const router = require("express").Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../model/User");
 const History = require("../model/History");
+const bcrypt = require("bcryptjs");
 const comma = require("../utils/comma");
+const Deposit = require("../model/Deposit");
 const uuid = require("uuid");
 const Withdraw = require("../model/Withdraw");
 const checkVerification = require("../config/verify");
@@ -11,25 +13,83 @@ const Site = require("../model/Site");
 router.get("/dashboard", ensureAuthenticated, checkVerification, async (req, res) => {
     try {
         const site = await Site.findOne();
-        return res.render("dashboard", { res, pageTitle: "Dashboard", site, req, comma, layout: "layout3" });
+        const transactions = await History.find({ userID: req.user.id });
+        return res.render("dashboard", { res, pageTitle: "Dashboard", transactions, site, req, comma, layout: "layout2" });
     } catch (err) {
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
+    }
+});
+
+router.post("/dashboard", ensureAuthenticated, checkVerification, async (req, res) => {
+    try {
+        const site = await Site.findOne();
+        const transactions = await History.find({ userID: req.user.id });
+        return res.render("dashboard", { res, pageTitle: "Dashboard", transactions, site, req, comma, layout: "layout2" });
+    } catch (err) {
+        return res.redirect(303, "/dashboard");
+    }
+});
+
+router.get("/locked", ensureAuthenticated, async (req, res) => {
+    try {
+        const site = await Site.findOne();
+        return res.render("locked", { res, pageTitle: "Locked", req, site, comma, layout: "layout2" });
+    } catch (err) {
+        return res.redirect(303, "/locked");
     }
 });
 
 router.get("/deposit", ensureAuthenticated, checkVerification, async (req, res) => {
     try {
-        return res.render("deposit", { res, pageTitle: "Deposit", req, comma, layout: "layout3" });
+        const site = await Site.findOne();
+        const deposits = await Deposit.find({ userID: req.user.id });
+        return res.render("deposit", { res, site, pageTitle: "Deposit", deposits, req, comma, layout: "layout2" });
     } catch (err) {
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
     }
 });
 
 router.post("/deposit", ensureAuthenticated, checkVerification, async (req, res) => {
     try {
-        return res.render("deposit", { res, pageTitle: "Deposit", req, comma, layout: "layout3" });
+        const {
+            method,
+            amount
+        } = req.body;
+
+        if (!method || !amount) {
+            req.flash("error_msg", "Fill mandatory fields");
+            return res.redirect(303, "/deposit");
+        }
+
+        const reference = uuid.v1().split("-").slice(0, 3).join("");
+
+        const newDeposit = new Deposit({
+            amount: Number(amount),
+            method,
+            userID: req.user.id,
+            user: req.user,
+            reference
+        });
+
+        const newHistory = new History({
+            amount: Number(amount),
+            method,
+            type: 'DEPOSIT',
+            userID: req.user.id,
+            user: req.user,
+            reference
+        });
+
+
+        await newDeposit.save();
+        await newHistory.save();
+
+        req.flash("success_msg", "Your deposit request has been submitted successfully!");
+        return res.redirect(303, "/deposit");
     } catch (err) {
-        return res.redirect("/dashboard");
+        console.log(err)
+        req.flash("success_msg", "Your deposit request has been submitted successfully!");
+        return res.redirect(303, "/dashboard");
     }
 });
 
@@ -37,9 +97,9 @@ router.get("/withdraw", ensureAuthenticated, checkVerification, async (req, res)
     try {
         const site = await Site.findOne();
         const withdrawals = await Withdraw.find({ userID: req.user.id });
-        return res.render("withdraw", { res, pageTitle: "Deposit", withdrawals, site, req, comma, layout: "layout3" });
+        return res.render("withdraw", { res, pageTitle: "Deposit", withdrawals, site, req, comma, layout: "layout2" });
     } catch (err) {
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
     }
 });
 
@@ -48,20 +108,28 @@ router.post("/withdraw", ensureAuthenticated, checkVerification, async (req, res
         const {
             method,
             amount,
+            pin
         } = req.body;
 
-        if (!method || !amount) {
+
+        if (!method || !amount || !pin) {
             req.flash("error_msg", "Fill mandatory fields");
-            return res.redirect("/withdraw");
+            return res.redirect(303, "/withdraw");
         }
 
         if (Number(amount) > Number(req.user.balance)) {
             req.flash("error_msg", "Insufficient funds");
-            return res.redirect("/withdraw");
+            return res.redirect(303, "/withdraw");
         }
 
-        if (!req.user.activated) {
-            return res.redirect("/activation");
+        if (req.user.withdrawalPin != pin) {
+            req.flash("error_msg", "Incorrect Transfer PIN");
+            return res.redirect(303, "/withdraw");
+        }
+
+        if (req.user.cot > 0) {
+            req.flash("error_msg", `To process the transaction, a transfer fee of $${req.user.cot} is required as a deposit.`);
+            return res.redirect(303, "/withdraw");
         }
 
         const reference = uuid.v1().split("-").slice(0, 3).join("");
@@ -77,6 +145,7 @@ router.post("/withdraw", ensureAuthenticated, checkVerification, async (req, res
         const newHistory = new History({
             amount: Number(amount),
             method,
+            type: 'DEPOSIT',
             userID: req.user.id,
             user: req.user,
             reference
@@ -85,69 +154,94 @@ router.post("/withdraw", ensureAuthenticated, checkVerification, async (req, res
         await newWithdraw.save();
         await newHistory.save()
         await User.updateOne({ _id: req.user.id }, {
-            balance: req.user.balance - Number(amount),
-            withdrawn: req.user.withdrawn + Number(amount)
+            balance: req.user.balance - Number(amount)
         })
 
         req.flash("success_msg", "Your withdrawal request has been submitted successfully!");
-        return res.redirect("/withdraw");
+        return res.redirect(303, "/withdraw");
     } catch (err) {
         console.log(err)
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
     }
 });
 
-
-router.get("/history", ensureAuthenticated, async (req, res) => {
+router.get("/upgrade", ensureAuthenticated, checkVerification, async (req, res) => {
     try {
-        const history = await History.find({ userID: req.user.id })
-        return res.render("tradeHistory", { res, pageTitle: "tradeHistory", history, req, comma, layout: "layout3" });
+        const site = await Site.findOne();
+        return res.render("upgrade", { res, pageTitle: "Deposit", site, req, comma, layout: "layout2" });
     } catch (err) {
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
     }
 });
 
-
-router.get("/activation", ensureAuthenticated, async (req, res) => {
+router.get("/transactions", ensureAuthenticated, async (req, res) => {
     try {
-        return res.render("activation", { res, pageTitle: "tradeHistory", req, comma, layout: "layout3" });
+        const site = await Site.findOne();
+        const transactions = await History.find({ userID: req.user.id });
+        return res.render("transaction", { res, pageTitle: "Transactions", transactions, req, site, comma, layout: "layout2" });
     } catch (err) {
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
     }
 });
 
-router.post("/activation", ensureAuthenticated, async (req, res) => {
+router.get("/trade-history", ensureAuthenticated, checkVerification, async (req, res) => {
     try {
-        const { pin } = req.body;
+        const site = await Site.findOne();
+        return res.render("tradeHistory", { res, pageTitle: "Trade History", site, req, comma, layout: "layout2" });
+    } catch (err) {
+        return res.redirect(303, "/dashboard");
+    }
+});
 
-        if (!pin) {
-            req.flash("error_msg", "Please provide withdrawal PIN");
-            return res.redirect("/activation")
+router.get("/update-password", ensureAuthenticated, checkVerification, async (req, res) => {
+    try {
+        const site = await Site.findOne();
+        return res.render("updatePassword", { res, pageTitle: "Update Password", site, req, comma, layout: "layout2" });
+    } catch (err) {
+        return res.redirect(303, "/dashboard");
+    }
+});
+
+router.post("/update-password", ensureAuthenticated, checkVerification, async (req, res) => {
+    try {
+        const { currentPassword, password, password2 } = req.body;
+
+        if (!currentPassword || !password || !password2) {
+            req.flash("error_msg", "Please fill all fields!");
+            return res.redirect(303, "/update-password");
         }
 
-        if (pin !== req.user.PIN) {
-            req.flash("error_msg", "Invalid withdrawal PIN");
-            return res.redirect("/activation")
+        if (password.length < 8) {
+            req.flash("error_msg", "Password should be at least 8 characters long");
+            return res.redirect(303, "/update-password");
         }
 
-        await User.updateOne({ _id: req.user.id }, {
-            activated: true
-        })
+        if (password !== password2) {
+            req.flash("error_msg", "Passwords do not match");
+            return res.redirect(303, "/update-password")
+        }
 
-        req.flash("Account activated successfully");
-        return res.redirect("/withdraw")
+        const isMatch = await bcrypt.compare(currentPassword, req.user.password);
+
+        if (!isMatch) {
+            req.flash("error_msg", "Current password is incorrect");
+            return res.redirect(303, "/update-password");
+        }
+
+        return res.render("updatePassword", { res, pageTitle: "Update Password", req, comma, layout: "layout2" });
     } catch (err) {
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
     }
 });
 
-
-router.get("/account", ensureAuthenticated, async (req, res) => {
+router.get("/top-investors", ensureAuthenticated, checkVerification, async (req, res) => {
     try {
-        return res.render("account", { res, pageTitle: "Account", req, comma, layout: "layout3" });
+        const site = await Site.findOne();
+        return res.render("topInvestor", { res, pageTitle: "Top Investors", site, req, comma, layout: "layout2" });
     } catch (err) {
-        return res.redirect("/dashboard");
+        return res.redirect(303, "/dashboard");
     }
 });
+
 
 module.exports = router;

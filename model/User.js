@@ -1,7 +1,11 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, models } = require("mongoose");
 
 const UserSchema = new Schema({
-    fullname: {
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
         type: String,
         required: true
     },
@@ -9,62 +13,40 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    username: {
-        type: String,
-        required: true
-    },
-    country: {
-        type: String,
-        required: true
-    },
-    currency: {
-        type: String,
-        required: false,
-        default: "USD"
-    },
     phone: {
         type: String,
         required: true
     },
     balance: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-    deposit: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-    earnings: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-    withdrawn: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-    accountType: {
         type: String,
         required: false,
+        default: 0
     },
-    status: {
-        type: Boolean,
-        required: false,
-        default: false
-    },
-    leverage: {
+    btcBalance: {
         type: String,
         required: false,
+        default: 0
+    },
+    invested: {
+        type: String,
+        required: false,
+        default: 0
+    },
+    accountLevel: {
+        type: String,
+        required: false,
+        default: "STARTER"
     },
     disabled: {
         type: Boolean,
         required: false,
         default: false
     },
-
+    currency: {
+        type: String,
+        required: false,
+        default: "USD"
+    },
     password: {
         type: String,
         required: true
@@ -78,6 +60,11 @@ const UserSchema = new Schema({
         required: false,
         default: Math.floor(Math.random() * 10000)
     },
+    cot: {
+        type: Number,
+        required: false,
+        default: 0
+    },
     isAdmin: {
         type: Boolean,
         required: false,
@@ -88,22 +75,12 @@ const UserSchema = new Schema({
         required: false,
         default: false
     },
-    PIN: {
-        type: String,
-        required: false,
-        default: "1199"
-    },
-    activated: {
-        type: Boolean,
-        required: false,
-        default: false
-    },
     regDate: {
         type: Date,
         required: false,
-        default: Date.now()
+        default: Date.now
     }
 });
 
-module.exports = User = model("User", UserSchema);
+module.exports = models.User || model("User", UserSchema);
 

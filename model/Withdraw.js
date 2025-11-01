@@ -1,4 +1,4 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, models } = require("mongoose");
 
 const WithdrawalSchema = new Schema({
     amount: {
@@ -29,8 +29,8 @@ const WithdrawalSchema = new Schema({
     date: {
         type: Date,
         required: false,
-        default: Date.now()
+        default: Date.now
     }
 });
 
-module.exports = Withdrawal = model("Withdrawal", WithdrawalSchema);
+module.exports = models.Withdrawal || model("Withdrawal", WithdrawalSchema);

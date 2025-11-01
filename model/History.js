@@ -1,6 +1,15 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, models } = require("mongoose");
 
 const HistorySchema = new Schema({
+    type: {
+        type: String,
+        required: true,
+        default: "Null"
+    },
+    note: {
+        type: String,
+        required: false
+    },
     amount: {
         type: Number,
         required: true
@@ -29,8 +38,8 @@ const HistorySchema = new Schema({
     date: {
         type: Date,
         required: false,
-        default: Date.now()
+        default: Date.now
     }
 });
 
-module.exports = History = model("History", HistorySchema);
+module.exports = models.History || model("History", HistorySchema);

@@ -1,4 +1,4 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, models } = require("mongoose");
 
 const SiteSchema = new Schema({
     bitcoinAddress: {
@@ -23,4 +23,4 @@ const SiteSchema = new Schema({
     }
 });
 
-module.exports = Site = model("Site", SiteSchema);
+module.exports = models.Site || model("Site", SiteSchema);
