@@ -10,10 +10,27 @@ router.get("/signin", (req, res) => {
 });
 
 router.post('/signin', (req, res, next) => {
-    passport.authenticate('admin-local', {
-        successRedirect: '/admin',
-        failureRedirect: '/admin/signin',
-        failureFlash: true
+    passport.authenticate('admin-local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            req.flash('error_msg', info.message || 'Login failed');
+            return res.redirect('/admin/signin');
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            // Explicitly save session
+            req.session.save((err) => {
+                if (err) {
+                    return next(err);
+                }
+                console.log('Admin logged in successfully:', user.email);
+                return res.redirect('/admin');
+            });
+        });
     })(req, res, next);
 });
 

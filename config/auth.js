@@ -7,6 +7,13 @@ module.exports = {
       res.redirect(303, '/signin');
     },
     ensureAdmin: function(req, res, next) {
+      console.log('=== ensureAdmin Check ===');
+      console.log('isAuthenticated:', req.isAuthenticated());
+      console.log('req.user:', req.user);
+      console.log('req.user?.isAdmin:', req.user?.isAdmin);
+      console.log('req.session:', req.session);
+      console.log('========================');
+      
       if (req.isAuthenticated() && req.user?.isAdmin) {
         return next();
       }

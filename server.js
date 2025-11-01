@@ -23,8 +23,11 @@ app.use(flash());
 app.use(
   session({
     secret: 'secret',
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 // 24 hours
+    }
   })
 );
 // Passport middleware

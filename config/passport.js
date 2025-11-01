@@ -63,10 +63,16 @@ module.exports = function (passport) {
   });
 
   passport.deserializeUser(async function (id, done) {
+    console.log('=== deserializeUser called ===');
+    console.log('User ID:', id);
     try {
       const user = await User.findById(id);
+      console.log('User found:', user ? `${user.email} (isAdmin: ${user.isAdmin})` : 'null');
+      console.log('============================');
       done(null, user);
     } catch (err) {
+      console.log('Error in deserializeUser:', err);
+      console.log('============================');
       done(err, null);
     }
   });
