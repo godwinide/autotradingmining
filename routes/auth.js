@@ -21,12 +21,10 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-router.get('/logout', (req, res, next) => {
-    req.logout(function(err) {
-        if (err) { return next(err); }
-        req.flash('success_msg', 'You are logged out');
-        res.redirect(303, '/login');
-    });
+router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success_msg', 'You are logged out');
+    res.redirect(303, '/login');
 });
 
 router.get("/register", async (req, res) => {
