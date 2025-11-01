@@ -31,7 +31,7 @@ const createApp = async () => {
 
     // View engine setup
     app.set('view engine', 'ejs');
-    app.set('views', path.join(__dirname, './views'));
+    app.set('views', path.join(__dirname, '../views'));
     app.set('layout', 'layout');
     app.use(layouts);
 
@@ -71,7 +71,7 @@ const createApp = async () => {
 
     // Global variables
     app.use(function (req, res, next) {
-        res.locals.siteName = "Auto Trading Mining";
+        res.locals.siteName = "Auto Trading Company";
         res.locals.success_msg = req.flash('success_msg');
         res.locals.error_msg = req.flash('error_msg');
         res.locals.error = req.flash('error');
