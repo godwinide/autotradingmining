@@ -27,7 +27,6 @@ router.post('/signin', (req, res, next) => {
                 if (err) {
                     return next(err);
                 }
-                console.log('Admin logged in successfully:', user.email);
                 return res.redirect('/admin');
             });
         });
