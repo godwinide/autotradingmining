@@ -31,12 +31,12 @@ const createApp = async () => {
 
     // View engine setup
     app.set('view engine', 'ejs');
-    app.set('views', path.join(__dirname, '../views'));
+    app.set('views', path.join(__dirname, './views'));
     app.set('layout', 'layout');
     app.use(layouts);
 
     // Static files
-    app.use(express.static(path.join(__dirname, '../public')));
+    app.use(express.static(path.join(__dirname, './public')));
 
     // Body parser
     app.use(express.json());
