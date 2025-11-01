@@ -3,7 +3,6 @@ const cors = require("cors");
 const app = express();
 const flash = require('connect-flash');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const passport = require("passport")
 const expressLayout = require("express-ejs-layouts");
 
@@ -23,22 +22,9 @@ app.use(express.json());
 app.use(flash());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'secret',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      touchAfter: 24 * 3600, // lazy session update
-      crypto: {
-        secret: process.env.SESSION_SECRET || 'secret'
-      }
-    }),
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 24 hours
-      httpOnly: true,
-      secure: true, // use secure cookies in production
-      sameSite: 'lax'
-    }
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
   })
 );
 // Passport middleware

@@ -58,10 +58,7 @@ const createApp = async () => {
             }
         }),
         cookie: {
-            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-            httpOnly: true,
-            secure: true, // use secure cookies in production
-            sameSite: 'lax'
+            maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
         }
     }));
 
