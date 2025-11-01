@@ -36,7 +36,7 @@ const createApp = async () => {
     app.use(layouts);
 
     // Static files
-    app.use(express.static(path.join(__dirname, './public')));
+    app.use(express.static(path.join(__dirname, '../public')));
 
     // Body parser
     app.use(express.json());
