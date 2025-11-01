@@ -10,7 +10,7 @@ router.get("/signin", (req, res) => {
 });
 
 router.post('/signin', (req, res, next) => {
-    passport.authenticate('local', {
+    passport.authenticate('admin-local', {
         successRedirect: '/admin',
         failureRedirect: '/admin/signin',
         failureFlash: true

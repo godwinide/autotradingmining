@@ -95,7 +95,7 @@
                 >
                   <div class="navbar-profile">
                     <p class="mb-0 d-none d-sm-block navbar-profile-name">
-                      <%= req.user.username %>
+                      <%= req.user.email %>
                     </p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
@@ -106,7 +106,7 @@
                 >
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a href="/settings" class="dropdown-item preview-item">
+                  <a href="/admin/settings" class="dropdown-item preview-item">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
@@ -117,7 +117,7 @@
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="/logout" class="dropdown-item preview-item">
+                  <a href="/admin/logout" class="dropdown-item preview-item">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-logout text-danger"></i>
